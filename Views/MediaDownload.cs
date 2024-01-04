@@ -1,8 +1,8 @@
 namespace CSharpTubeDownloader
 {
-    public partial class Form1 : Form
+    public partial class MediaDownload : Form
     {
-        public Form1()
+        public MediaDownload()
         {
             InitializeComponent();
         }
