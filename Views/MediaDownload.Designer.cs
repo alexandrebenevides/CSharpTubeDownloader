@@ -32,14 +32,14 @@
             progressBar = new ProgressBar();
             startButton = new Button();
             folderBrowserDialog = new FolderBrowserDialog();
-            textBox1 = new TextBox();
+            youtubeLink = new TextBox();
             youtubeLinkLabel = new Label();
             downloadFormatAVI = new RadioButton();
             downloadFormatLabel = new Label();
             downloadFormatMP3 = new RadioButton();
             downloadFormatMP4 = new RadioButton();
             destinationFolderLabel = new Label();
-            textBox2 = new TextBox();
+            destinationFolder = new TextBox();
             selectFolderButton = new Button();
             SuspendLayout();
             // 
@@ -70,13 +70,17 @@
             startButton.Text = "Start";
             startButton.UseVisualStyleBackColor = true;
             // 
-            // textBox1
+            // folderBrowserDialog
             // 
-            textBox1.Font = new Font("Segoe UI", 12F);
-            textBox1.Location = new Point(18, 146);
-            textBox1.Name = "textBox1";
-            textBox1.Size = new Size(608, 34);
-            textBox1.TabIndex = 3;
+            folderBrowserDialog.Description = "Select a destination folder";
+            // 
+            // youtubeLink
+            // 
+            youtubeLink.Font = new Font("Segoe UI", 12F);
+            youtubeLink.Location = new Point(18, 146);
+            youtubeLink.Name = "youtubeLink";
+            youtubeLink.Size = new Size(608, 34);
+            youtubeLink.TabIndex = 3;
             // 
             // youtubeLinkLabel
             // 
@@ -141,15 +145,15 @@
             destinationFolderLabel.TabIndex = 9;
             destinationFolderLabel.Text = "Destination Folder";
             // 
-            // textBox2
+            // destinationFolder
             // 
-            textBox2.Enabled = false;
-            textBox2.Font = new Font("Segoe UI", 12F);
-            textBox2.Location = new Point(18, 382);
-            textBox2.Name = "textBox2";
-            textBox2.ReadOnly = true;
-            textBox2.Size = new Size(478, 34);
-            textBox2.TabIndex = 10;
+            destinationFolder.Enabled = false;
+            destinationFolder.Font = new Font("Segoe UI", 12F);
+            destinationFolder.Location = new Point(18, 382);
+            destinationFolder.Name = "destinationFolder";
+            destinationFolder.ReadOnly = true;
+            destinationFolder.Size = new Size(478, 34);
+            destinationFolder.TabIndex = 10;
             // 
             // selectFolderButton
             // 
@@ -160,6 +164,7 @@
             selectFolderButton.TabIndex = 11;
             selectFolderButton.Text = "Select";
             selectFolderButton.UseVisualStyleBackColor = true;
+            selectFolderButton.Click += selectFolderButton_Click;
             // 
             // MediaDownload
             // 
@@ -167,14 +172,14 @@
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(638, 615);
             Controls.Add(selectFolderButton);
-            Controls.Add(textBox2);
+            Controls.Add(destinationFolder);
             Controls.Add(destinationFolderLabel);
             Controls.Add(downloadFormatMP4);
             Controls.Add(downloadFormatMP3);
             Controls.Add(downloadFormatLabel);
             Controls.Add(downloadFormatAVI);
             Controls.Add(youtubeLinkLabel);
-            Controls.Add(textBox1);
+            Controls.Add(youtubeLink);
             Controls.Add(startButton);
             Controls.Add(progressBar);
             Controls.Add(formTitle);
@@ -190,14 +195,14 @@
         private ProgressBar progressBar;
         private Button startButton;
         private FolderBrowserDialog folderBrowserDialog;
-        private TextBox textBox1;
+        private TextBox youtubeLink;
         private Label youtubeLinkLabel;
         private RadioButton downloadFormatAVI;
         private Label downloadFormatLabel;
         private RadioButton downloadFormatMP3;
         private RadioButton downloadFormatMP4;
         private Label destinationFolderLabel;
-        private TextBox textBox2;
+        private TextBox destinationFolder;
         private Button selectFolderButton;
     }
 }
