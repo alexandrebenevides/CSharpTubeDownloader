@@ -1,6 +1,6 @@
 ﻿namespace CSharpTubeDownloader
 {
-    partial class MediaDownload
+    partial class DownloadMedia
     {
         /// <summary>
         ///  Required designer variable.
@@ -69,6 +69,7 @@
             startButton.TabIndex = 2;
             startButton.Text = "Start";
             startButton.UseVisualStyleBackColor = true;
+            startButton.Click += StartButtonClick;
             // 
             // folderBrowserDialog
             // 
@@ -95,12 +96,13 @@
             // downloadFormatAVI
             // 
             downloadFormatAVI.AutoSize = true;
+            downloadFormatAVI.Checked = true;
             downloadFormatAVI.Location = new Point(18, 245);
             downloadFormatAVI.Name = "downloadFormatAVI";
-            downloadFormatAVI.Size = new Size(55, 24);
+            downloadFormatAVI.Size = new Size(52, 24);
             downloadFormatAVI.TabIndex = 5;
             downloadFormatAVI.TabStop = true;
-            downloadFormatAVI.Text = ".AVI";
+            downloadFormatAVI.Text = "AVI";
             downloadFormatAVI.UseVisualStyleBackColor = true;
             // 
             // downloadFormatLabel
@@ -118,10 +120,9 @@
             downloadFormatMP3.AutoSize = true;
             downloadFormatMP3.Location = new Point(18, 275);
             downloadFormatMP3.Name = "downloadFormatMP3";
-            downloadFormatMP3.Size = new Size(62, 24);
+            downloadFormatMP3.Size = new Size(59, 24);
             downloadFormatMP3.TabIndex = 7;
-            downloadFormatMP3.TabStop = true;
-            downloadFormatMP3.Text = ".MP3";
+            downloadFormatMP3.Text = "MP3";
             downloadFormatMP3.UseVisualStyleBackColor = true;
             // 
             // downloadFormatMP4
@@ -129,10 +130,9 @@
             downloadFormatMP4.AutoSize = true;
             downloadFormatMP4.Location = new Point(18, 305);
             downloadFormatMP4.Name = "downloadFormatMP4";
-            downloadFormatMP4.Size = new Size(62, 24);
+            downloadFormatMP4.Size = new Size(59, 24);
             downloadFormatMP4.TabIndex = 8;
-            downloadFormatMP4.TabStop = true;
-            downloadFormatMP4.Text = ".MP4";
+            downloadFormatMP4.Text = "MP4";
             downloadFormatMP4.UseVisualStyleBackColor = true;
             // 
             // destinationFolderLabel
@@ -164,9 +164,9 @@
             selectFolderButton.TabIndex = 11;
             selectFolderButton.Text = "Select";
             selectFolderButton.UseVisualStyleBackColor = true;
-            selectFolderButton.Click += selectFolderButton_Click;
+            selectFolderButton.Click += SelectFolderButtonClick;
             // 
-            // MediaDownload
+            // DownloadMedia
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
@@ -183,7 +183,8 @@
             Controls.Add(startButton);
             Controls.Add(progressBar);
             Controls.Add(formTitle);
-            Name = "MediaDownload";
+            Name = "DownloadMedia";
+            StartPosition = FormStartPosition.CenterScreen;
             Text = "CSharpTubeDownloader";
             ResumeLayout(false);
             PerformLayout();
@@ -192,7 +193,6 @@
         #endregion
 
         private Label formTitle;
-        private ProgressBar progressBar;
         private Button startButton;
         private FolderBrowserDialog folderBrowserDialog;
         private TextBox youtubeLink;
@@ -204,5 +204,6 @@
         private Label destinationFolderLabel;
         private TextBox destinationFolder;
         private Button selectFolderButton;
+        public ProgressBar progressBar;
     }
 }

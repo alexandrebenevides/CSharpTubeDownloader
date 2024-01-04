@@ -9,8 +9,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Controllers\" />
-    <Folder Include="Services\" />
+    <PackageReference Include="YoutubeExplode" Version="6.3.10" />
   </ItemGroup>
 
 </Project>
