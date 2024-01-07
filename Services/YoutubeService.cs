@@ -23,7 +23,7 @@ namespace CSharpTubeDownloader.Services
 
                     case "mp4":
                     case "avi":
-                        streamInfo = streamInfoSet.GetVideoOnlyStreams().GetWithHighestVideoQuality();
+                        streamInfo = streamInfoSet.GetMuxedStreams().GetWithHighestVideoQuality();
                         break;
 
                     default:
@@ -34,7 +34,8 @@ namespace CSharpTubeDownloader.Services
                 if (streamInfo != null)
                 {
                     Stream videoStream = await youtube.Videos.Streams.GetAsync(streamInfo);
-                    string outputPath = Path.Combine(destinationFolderPath, $"{video.Title}.{fileFormat}");
+                    string videoTitle = new string(video.Title.Where(c => !Path.GetInvalidFileNameChars().Contains(c)).ToArray());
+                    string outputPath = Path.Combine(destinationFolderPath, $"{videoTitle}.{fileFormat}");
 
                     Console.WriteLine($"Baixando vídeo para: {outputPath}");
 
