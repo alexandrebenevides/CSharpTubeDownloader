@@ -41,6 +41,8 @@
             destinationFolderLabel = new Label();
             destinationFolder = new TextBox();
             selectFolderButton = new Button();
+            downloadFormatGroupBox = new GroupBox();
+            downloadFormatGroupBox.SuspendLayout();
             SuspendLayout();
             // 
             // formTitle
@@ -97,7 +99,7 @@
             // 
             downloadFormatAVI.AutoSize = true;
             downloadFormatAVI.Checked = true;
-            downloadFormatAVI.Location = new Point(18, 245);
+            downloadFormatAVI.Location = new Point(6, 26);
             downloadFormatAVI.Name = "downloadFormatAVI";
             downloadFormatAVI.Size = new Size(52, 24);
             downloadFormatAVI.TabIndex = 5;
@@ -118,7 +120,7 @@
             // downloadFormatMP3
             // 
             downloadFormatMP3.AutoSize = true;
-            downloadFormatMP3.Location = new Point(18, 275);
+            downloadFormatMP3.Location = new Point(6, 56);
             downloadFormatMP3.Name = "downloadFormatMP3";
             downloadFormatMP3.Size = new Size(59, 24);
             downloadFormatMP3.TabIndex = 7;
@@ -128,7 +130,7 @@
             // downloadFormatMP4
             // 
             downloadFormatMP4.AutoSize = true;
-            downloadFormatMP4.Location = new Point(18, 305);
+            downloadFormatMP4.Location = new Point(6, 86);
             downloadFormatMP4.Name = "downloadFormatMP4";
             downloadFormatMP4.Size = new Size(59, 24);
             downloadFormatMP4.TabIndex = 8;
@@ -139,7 +141,7 @@
             // 
             destinationFolderLabel.AutoSize = true;
             destinationFolderLabel.Font = new Font("Segoe UI", 12F);
-            destinationFolderLabel.Location = new Point(12, 351);
+            destinationFolderLabel.Location = new Point(12, 367);
             destinationFolderLabel.Name = "destinationFolderLabel";
             destinationFolderLabel.Size = new Size(173, 28);
             destinationFolderLabel.TabIndex = 9;
@@ -149,7 +151,7 @@
             // 
             destinationFolder.Enabled = false;
             destinationFolder.Font = new Font("Segoe UI", 12F);
-            destinationFolder.Location = new Point(18, 382);
+            destinationFolder.Location = new Point(18, 398);
             destinationFolder.Name = "destinationFolder";
             destinationFolder.ReadOnly = true;
             destinationFolder.Size = new Size(478, 34);
@@ -158,7 +160,7 @@
             // selectFolderButton
             // 
             selectFolderButton.FlatStyle = FlatStyle.Flat;
-            selectFolderButton.Location = new Point(502, 382);
+            selectFolderButton.Location = new Point(502, 398);
             selectFolderButton.Name = "selectFolderButton";
             selectFolderButton.Size = new Size(124, 34);
             selectFolderButton.TabIndex = 11;
@@ -166,18 +168,27 @@
             selectFolderButton.UseVisualStyleBackColor = true;
             selectFolderButton.Click += SelectFolderButtonClick;
             // 
+            // downloadFormatGroupBox
+            // 
+            downloadFormatGroupBox.Controls.Add(downloadFormatAVI);
+            downloadFormatGroupBox.Controls.Add(downloadFormatMP3);
+            downloadFormatGroupBox.Controls.Add(downloadFormatMP4);
+            downloadFormatGroupBox.Location = new Point(18, 231);
+            downloadFormatGroupBox.Name = "downloadFormatGroupBox";
+            downloadFormatGroupBox.Size = new Size(608, 125);
+            downloadFormatGroupBox.TabIndex = 12;
+            downloadFormatGroupBox.TabStop = false;
+            // 
             // DownloadMedia
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(638, 615);
+            Controls.Add(downloadFormatGroupBox);
             Controls.Add(selectFolderButton);
             Controls.Add(destinationFolder);
             Controls.Add(destinationFolderLabel);
-            Controls.Add(downloadFormatMP4);
-            Controls.Add(downloadFormatMP3);
             Controls.Add(downloadFormatLabel);
-            Controls.Add(downloadFormatAVI);
             Controls.Add(youtubeLinkLabel);
             Controls.Add(youtubeLink);
             Controls.Add(startButton);
@@ -186,6 +197,8 @@
             Name = "DownloadMedia";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "CSharpTubeDownloader";
+            downloadFormatGroupBox.ResumeLayout(false);
+            downloadFormatGroupBox.PerformLayout();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -205,5 +218,6 @@
         private TextBox destinationFolder;
         private Button selectFolderButton;
         public ProgressBar progressBar;
+        private GroupBox downloadFormatGroupBox;
     }
 }
