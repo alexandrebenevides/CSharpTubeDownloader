@@ -58,6 +58,7 @@
             // progressBar
             // 
             progressBar.Location = new Point(12, 549);
+            progressBar.MarqueeAnimationSpeed = 1000;
             progressBar.Name = "progressBar";
             progressBar.Size = new Size(614, 42);
             progressBar.TabIndex = 1;

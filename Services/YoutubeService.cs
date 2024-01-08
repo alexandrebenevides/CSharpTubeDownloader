@@ -6,14 +6,14 @@ namespace CSharpTubeDownloader.Services
 {
     internal class YoutubeService
     {
-        public async void DownloadVideoAsync(string youtubeLink, string destinationFolderPath, string fileFormat)
+        public async void DownloadVideoAsync(string youtubeLink, string destinationFolderPath, string fileFormat, ProgressBar progressBar)
         {
             YoutubeClient youtube = new YoutubeClient();
             Video video = await youtube.Videos.GetAsync(youtubeLink);
 
             if (video != null) {
                 StreamManifest streamInfoSet = await youtube.Videos.Streams.GetManifestAsync(video.Id);
-                IStreamInfo streamInfo = null;
+                IStreamInfo? streamInfo = null;
 
                 switch(fileFormat)
                 {
@@ -33,18 +33,13 @@ namespace CSharpTubeDownloader.Services
 
                 if (streamInfo != null)
                 {
-                    Stream videoStream = await youtube.Videos.Streams.GetAsync(streamInfo);
                     string videoTitle = new string(video.Title.Where(c => !Path.GetInvalidFileNameChars().Contains(c)).ToArray());
                     string outputPath = Path.Combine(destinationFolderPath, $"{videoTitle}.{fileFormat}");
 
-                    Console.WriteLine($"Baixando vídeo para: {outputPath}");
+                    var progress = new Progress<double>(p => progressBar.Value = (int)(p * 100));
+                    await youtube.Videos.Streams.DownloadAsync(streamInfo, outputPath, progress);
 
-                    using (var fileStream = File.OpenWrite(outputPath))
-                    {
-                        await videoStream.CopyToAsync(fileStream);
-                    }
-
-                    MessageBox.Show("Download concluído!", "Aviso");
+                    MessageBox.Show($"Download concluído e salvo em: {outputPath}", "Aviso");
                     return;
                 }
 

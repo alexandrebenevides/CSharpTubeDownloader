@@ -26,13 +26,15 @@ namespace CSharpTubeDownloader
         private void StartButtonClick(object sender, EventArgs e)
         {
             string selectedDownloadFormat = this.downloadFormatGroupBox.Controls.OfType<RadioButton>().FirstOrDefault(radio => radio.Checked).Text;
-            new DownloadMediaController().StartDownload(this.youtubeLink.Text, this.destinationFolder.Text, selectedDownloadFormat);
+            new DownloadMediaController().StartDownload(this.youtubeLink.Text, this.destinationFolder.Text, selectedDownloadFormat, this.progressBar);
         }
 
         public ProgressBar ProgressBar
         {
-            get { return progressBar; }
-            set { progressBar = value; }
+            get { return this.progressBar; }
+            set { this.progressBar = value; }
         }
+
+
     }
 }
