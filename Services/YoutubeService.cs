@@ -6,8 +6,18 @@ namespace CSharpTubeDownloader.Services
 {
     internal class YoutubeService
     {
-        public async void DownloadVideoAsync(string youtubeLink, string destinationFolderPath, string fileFormat, ProgressBar progressBar)
+        private ProgressBar ProgressBar;
+        private Button StartButton;
+
+        public YoutubeService(ProgressBar progressBar = null, Button startButton = null)
         {
+            ProgressBar = progressBar;
+            StartButton = startButton;
+        }
+
+        public async void DownloadVideoAsync(string youtubeLink, string destinationFolderPath, string fileFormat)
+        {
+            StartDownloadEvent();
             YoutubeClient youtube = new YoutubeClient();
             Video video = await youtube.Videos.GetAsync(youtubeLink);
 
@@ -36,10 +46,11 @@ namespace CSharpTubeDownloader.Services
                     string videoTitle = new string(video.Title.Where(c => !Path.GetInvalidFileNameChars().Contains(c)).ToArray());
                     string outputPath = Path.Combine(destinationFolderPath, $"{videoTitle}.{fileFormat}");
 
-                    var progress = new Progress<double>(p => progressBar.Value = (int)(p * 100));
+                    var progress = new Progress<double>(p => ProgressBar.Value = (int)(p * 100));
                     await youtube.Videos.Streams.DownloadAsync(streamInfo, outputPath, progress);
 
                     MessageBox.Show($"Download completed and saved to:: {outputPath}", "Alert Message");
+                    FinishDownloadEvent();
                     return;
                 }
 
@@ -48,6 +59,19 @@ namespace CSharpTubeDownloader.Services
             }
 
             MessageBox.Show("Unable to find the video.", "Alert Message");
+        }
+
+        private void StartDownloadEvent()
+        {
+            StartButton.Enabled = false;
+            StartButton.Text = "Downloading...";
+        }
+
+        private void FinishDownloadEvent()
+        {
+            StartButton.Enabled = true;
+            StartButton.Text = "Start";
+            ProgressBar.Value = 0;
         }
     }
 }

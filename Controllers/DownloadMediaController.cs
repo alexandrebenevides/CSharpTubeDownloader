@@ -5,17 +5,20 @@ namespace CSharpTubeDownloader.Controllers
 {
     internal class DownloadMediaController
     {
-        public void StartDownload(string youtubeLink, string destinationFolder, string fileFormat, ProgressBar progressBar)
+        public void StartDownload(DownloadMedia form)
         {
-            ValidationResponse validateValueInYoutubeLink = ValidationService.checkNullOrEmptyValue("YouTube Link", youtubeLink);
-            ValidationResponse validateValueInDestinationFolder = ValidationService.checkNullOrEmptyValue("Destination Folder", destinationFolder);
-            ValidationResponse validateValueInFileFormat = ValidationService.checkNullOrEmptyValue("Download Format", fileFormat);
-            ValidationResponse validateIfIsYoutubeLink = ValidationService.checkYoutubeLink("YouTube Link", youtubeLink);
+
+            ValidationResponse validateValueInYoutubeLink = ValidationService.checkNullOrEmptyValue("YouTube Link", form.youtubeLink.Text);
+            ValidationResponse validateValueInDestinationFolder = ValidationService.checkNullOrEmptyValue("Destination Folder", form.destinationFolder.Text);
+            ValidationResponse validateIfIsYoutubeLink = ValidationService.checkYoutubeLink("YouTube Link", form.youtubeLink.Text);
+
+            string selectedDownloadFormat = form.downloadFormatGroupBox.Controls.OfType<RadioButton>().FirstOrDefault(radio => radio.Checked).Text;
+            ValidationResponse validateValueInFileFormat = ValidationService.checkNullOrEmptyValue("Download Format", selectedDownloadFormat);
 
             if (validateValueInYoutubeLink.IsValid && validateValueInDestinationFolder.IsValid && validateValueInFileFormat.IsValid && validateIfIsYoutubeLink.IsValid)
             {
-                YoutubeService youtubeService = new YoutubeService();
-                youtubeService.DownloadVideoAsync(youtubeLink, destinationFolder, fileFormat.ToLower(), progressBar);
+                YoutubeService youtubeService = new YoutubeService(form.progressBar, form.startButton);
+                youtubeService.DownloadVideoAsync(form.youtubeLink.Text, form.destinationFolder.Text, selectedDownloadFormat.ToLower());
             }
         }
     }

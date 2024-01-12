@@ -207,18 +207,18 @@
         #endregion
 
         private Label formTitle;
-        private Button startButton;
         private FolderBrowserDialog folderBrowserDialog;
-        private TextBox youtubeLink;
         private Label youtubeLinkLabel;
         private RadioButton downloadFormatAVI;
         private Label downloadFormatLabel;
         private RadioButton downloadFormatMP3;
         private RadioButton downloadFormatMP4;
         private Label destinationFolderLabel;
-        private TextBox destinationFolder;
         private Button selectFolderButton;
         public ProgressBar progressBar;
-        private GroupBox downloadFormatGroupBox;
+        public Button startButton;
+        public TextBox youtubeLink;
+        public TextBox destinationFolder;
+        public GroupBox downloadFormatGroupBox;
     }
 }
