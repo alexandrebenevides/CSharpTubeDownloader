@@ -1,4 +1,5 @@
-﻿using CSharpTubeDownloader.Services;
+﻿using CSharpTubeDownloader.Models;
+using CSharpTubeDownloader.Services;
 
 namespace CSharpTubeDownloader.Controllers
 {
@@ -6,8 +7,16 @@ namespace CSharpTubeDownloader.Controllers
     {
         public void StartDownload(string youtubeLink, string destinationFolder, string fileFormat, ProgressBar progressBar)
         {
-            YoutubeService youtubeService = new YoutubeService();
-            youtubeService.DownloadVideoAsync(youtubeLink, destinationFolder, fileFormat.ToLower(), progressBar);
+            ValidationResponse validateValueInYoutubeLink = ValidationService.checkNullOrEmptyValue("YouTube Link", youtubeLink);
+            ValidationResponse validateValueInDestinationFolder = ValidationService.checkNullOrEmptyValue("Destination Folder", destinationFolder);
+            ValidationResponse validateValueInFileFormat = ValidationService.checkNullOrEmptyValue("Download Format", fileFormat);
+            ValidationResponse validateIfIsYoutubeLink = ValidationService.checkYoutubeLink("YouTube Link", youtubeLink);
+
+            if (validateValueInYoutubeLink.IsValid && validateValueInDestinationFolder.IsValid && validateValueInFileFormat.IsValid && validateIfIsYoutubeLink.IsValid)
+            {
+                YoutubeService youtubeService = new YoutubeService();
+                youtubeService.DownloadVideoAsync(youtubeLink, destinationFolder, fileFormat.ToLower(), progressBar);
+            }
         }
     }
 }

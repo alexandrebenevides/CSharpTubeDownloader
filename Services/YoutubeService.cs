@@ -27,7 +27,7 @@ namespace CSharpTubeDownloader.Services
                         break;
 
                     default:
-                        MessageBox.Show("Formato não suportado.", "Aviso");
+                        MessageBox.Show("Format not supported.", "Alert Message");
                         return;
                 }
 
@@ -39,15 +39,15 @@ namespace CSharpTubeDownloader.Services
                     var progress = new Progress<double>(p => progressBar.Value = (int)(p * 100));
                     await youtube.Videos.Streams.DownloadAsync(streamInfo, outputPath, progress);
 
-                    MessageBox.Show($"Download concluído e salvo em: {outputPath}", "Aviso");
+                    MessageBox.Show($"Download completed and saved to:: {outputPath}", "Alert Message");
                     return;
                 }
 
-                MessageBox.Show("Não foi possível encontrar uma stream disponível para o formato desejado.", "Aviso");
+                MessageBox.Show("Unable to find an available stream for the desired format.", "Alert Message");
                 return;
             }
 
-            MessageBox.Show("Não foi possível encontrar o vídeo.", "Aviso");
+            MessageBox.Show("Unable to find the video.", "Alert Message");
         }
     }
 }
