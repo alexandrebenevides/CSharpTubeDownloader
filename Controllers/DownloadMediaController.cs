@@ -1,4 +1,4 @@
-﻿using CSharpTubeDownloader.Models;
+﻿using CSharpTubeDownloader.Exceptions;
 using CSharpTubeDownloader.Services;
 
 namespace CSharpTubeDownloader.Controllers
@@ -7,18 +7,21 @@ namespace CSharpTubeDownloader.Controllers
     {
         public void StartDownload(DownloadMedia form)
         {
-
-            ValidationResponse validateValueInYoutubeLink = ValidationService.checkNullOrEmptyValue("YouTube Link", form.youtubeLink.Text);
-            ValidationResponse validateValueInDestinationFolder = ValidationService.checkNullOrEmptyValue("Destination Folder", form.destinationFolder.Text);
-            ValidationResponse validateIfIsYoutubeLink = ValidationService.checkYoutubeLink("YouTube Link", form.youtubeLink.Text);
-
-            string selectedDownloadFormat = form.downloadFormatGroupBox.Controls.OfType<RadioButton>().FirstOrDefault(radio => radio.Checked).Text;
-            ValidationResponse validateValueInFileFormat = ValidationService.checkNullOrEmptyValue("Download Format", selectedDownloadFormat);
-
-            if (validateValueInYoutubeLink.IsValid && validateValueInDestinationFolder.IsValid && validateValueInFileFormat.IsValid && validateIfIsYoutubeLink.IsValid)
+            try
             {
+                ValidationService.checkNullOrEmptyValue("YouTube Link", form.youtubeLink.Text);
+                ValidationService.checkNullOrEmptyValue("Destination Folder", form.destinationFolder.Text);
+                ValidationService.checkYoutubeLink("YouTube Link", form.youtubeLink.Text);
+
+                string selectedDownloadFormat = form.downloadFormatGroupBox.Controls.OfType<RadioButton>().FirstOrDefault(radio => radio.Checked).Text;
+                ValidationService.checkNullOrEmptyValue("Download Format", selectedDownloadFormat);
+
                 YoutubeService youtubeService = new YoutubeService(form.progressBar, form.startButton);
                 youtubeService.DownloadVideoAsync(form.youtubeLink.Text, form.destinationFolder.Text, selectedDownloadFormat.ToLower());
+            }
+            catch (ValidationException ex)
+            {
+                MessageBox.Show(ex.Message, "Alert Message");
             }
         }
     }
